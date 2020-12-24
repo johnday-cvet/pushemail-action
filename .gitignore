@@ -73,3 +73,4 @@ typings/
 
 # mac-os
 .DS_Store
+*.bak

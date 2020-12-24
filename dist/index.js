@@ -2495,52 +2495,36 @@ exports.issueCommand = issueCommand;
 /* 104 */
 /***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
 
-var core = __webpack_require__(470);
-var github = __webpack_require__(469);
-var sendgrid = __webpack_require__(928);
-//var moment = require('moment');
-//var Remarkable = require('remarkable').Remarkable;
-var shouldNotify = false;
+const core = __webpack_require__(470);
+const github = __webpack_require__(469);
+const sendgrid = __webpack_require__(928);
+let shouldNotify = false;
 
-// most @actions toolkit packages have async methods
 async function run() {
   try { 
     // set SendGrid API Key
     sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 
     // get all the input variables
-    var fromEmail = core.getInput('fromMailAddress');
-    var toEmail = core.getInput('toMailAddress');
-    var subject = core.getInput('subject');
-    var verbose = core.getInput('verbose');
-    //var labelsToMonitor = core.getInput('labelsToMonitor').split(",");
-    var subjectPrefix = core.getInput('subjectPrefix');
+    const fromEmail = core.getInput('fromMailAddress');
+    const toEmail = core.getInput('toMailAddress');
+    let subject = core.getInput('subject');
+    const verbose = core.getInput('verbose');
+    const subjectPrefix = core.getInput('subjectPrefix');
 
-    // check to make sure we match any of the labels first
-    var payload = github.context.payload;
-    //var issue = context.payload.issue;
-    //var issueLabels = issue.labels;
-    if (verbose) 
+    if (verbose)
     {
-      //console.log(issue);
       console.log('TO:' + toEmail);
       console.log('FROM:' + fromEmail);
       console.log('SUBJECT:' + subject);
       console.log('SUBJECT PREFIX:' + subjectPrefix);
-      //console.log('LABELS TO MONITOR:' + labelsToMonitor);
-      //console.log('LABELS:' + issueLabels);
     }
 
-    //shouldNotify = issueLabels.map(i => i.name).some(item => labelsToMonitor.includes(item));
     shouldNotify = true;
     if (verbose) console.log('SHOULD NOTIFY: ' + shouldNotify);
 
     if (shouldNotify) {
-      //const md = new Remarkable({html:true});
-      //var posted_date = moment(issue.created_at).format("dddd, MMMM Do YYYY, h:mm:ss a");
-      //var issueBodyPlain = 'Posted at ' + posted_date + '\nAnnouncement URL: ' + issue.html_url + '\n\n' + issue.body;
-      //var issueBodyHtml = 'Posted at ' + posted_date + '<br/>Announcement URL: <a href=' + issue.html_url + '>' + issue.html_url + '</a><br/><br/>' + md.render(issue.body);
-
+      const payload = github.context.payload;
       const issueBodyPlain
         = 'Push of one or more secure files\n\nLink to changes: ' + payload.compare
         + '\nSHA: ' + github.context.sha
@@ -2560,7 +2544,7 @@ async function run() {
           + '</ol>';
       const title = 'Push of one or more secure files from ' + payload.repository.full_name;
   
-      // construct the right subject line
+      // construct the subject line
       if (!subjectPrefix.startsWith('__NONCE__')) {
         subject = subjectPrefix + ' ' + title;
       }
