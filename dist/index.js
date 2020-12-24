@@ -2543,17 +2543,19 @@ async function run() {
 
       const issueBodyPlain
         = 'Push of one or more secure files\n\nLink to changes: ' + payload.compare
-        + '\nSHA: ' + payload.sha
-        + '\nactor: ' + payload.actor
+        + '\nSHA: ' + github.context.sha
+        + '\nactor: ' + github.context.actor
         + '\nref: ' + payload.ref
+        + '\ngithub workflow:' + github.context.workflow
         + '\nrepository: ' + payload.repository.full_name;
       const issueBodyHtml
           = 'Push of one or more secure files'
           + '<ol>'
           + '<li><a href="' + payload.compare + '">Link to Changes</a></li>'
-          + '<li><b>SHA</b>: ' + payload.sha + '</li>'
-          + '<li><b>actor</b>: ' + payload.actor + '</li>'
+          + '<li><b>SHA</b>: ' + github.context.sha + '</li>'
+          + '<li><b>actor</b>: ' + github.context.actor + '</li>'
           + '<li><b>ref</b>: ' + payload.ref + '</li>'
+          + '<li><b>github workflow</b>: ' + github.context.workflow + '</li>'
           + '<li><b>repository</b>: ' + payload.repository.full_name + '</li>'
           + '</ol>';
       const title = 'Push of one or more secure files from ' + payload.repository.full_name;
