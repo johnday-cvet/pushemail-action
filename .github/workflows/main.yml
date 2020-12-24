@@ -19,3 +19,8 @@ jobs:
         subjectPrefix: 'BC:'
         labelsToMonitor: "breaking-change,Breaking change"
         verbose: false
+
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
