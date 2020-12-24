@@ -1,4 +1,3 @@
-
 # pushemail-action
 
 Send an email based on some trigger in GitHub. For example, send an email
