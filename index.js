@@ -1,8 +1,8 @@
 var core = require('@actions/core');
 var github = require('@actions/github');
 var sendgrid = require('@sendgrid/mail');
-var moment = require('moment');
-var Remarkable = require('remarkable').Remarkable;
+//var moment = require('moment');
+//var Remarkable = require('remarkable').Remarkable;
 var shouldNotify = false;
 
 // most @actions toolkit packages have async methods
@@ -20,8 +20,7 @@ async function run() {
     var subjectPrefix = core.getInput('subjectPrefix');
 
     // check to make sure we match any of the labels first
-    var context = github.context;
-    console.log(context);
+    var payload = github.context.payload;
     //var issue = context.payload.issue;
     //var issueLabels = issue.labels;
     if (verbose) 
@@ -40,14 +39,27 @@ async function run() {
     if (verbose) console.log('SHOULD NOTIFY: ' + shouldNotify);
 
     if (shouldNotify) {
-      var md = new Remarkable({html:true});
+      //const md = new Remarkable({html:true});
       //var posted_date = moment(issue.created_at).format("dddd, MMMM Do YYYY, h:mm:ss a");
       //var issueBodyPlain = 'Posted at ' + posted_date + '\nAnnouncement URL: ' + issue.html_url + '\n\n' + issue.body;
       //var issueBodyHtml = 'Posted at ' + posted_date + '<br/>Announcement URL: <a href=' + issue.html_url + '>' + issue.html_url + '</a><br/><br/>' + md.render(issue.body);
 
-      var issueBodyPlain = 'my body plain';
-      var issueBodyHtml = 'my body html';
-      var title = 'my title';
+      const issueBodyPlain
+        = 'Push of one or more secure files\n\nLink to changes: ' + payload.compare
+        + '\nSHA: ' + payload.sha
+        + '\nactor: ' + payload.actor
+        + '\nref: ' + payload.ref
+        + '\nrepository: ' + payload.repository.full_name;
+      const issueBodyHtml
+          = 'Push of one or more secure files'
+          + '<ol>'
+          + '<li><a href="' + payload.compare + '">Link to Changes</a></li>'
+          + '<li><b>SHA</b>: ' + payload.sha + '</li>'
+          + '<li><b>actor</b>: ' + payload.actor + '</li>'
+          + '<li><b>ref</b>: ' + payload.ref + '</li>'
+          + '<li><b>repository</b>: ' + payload.repository.full_name + '</li>'
+          + '</ol>';
+      const title = 'Push of one or more secure files from ' + payload.repository.full_name;
   
       // construct the right subject line
       if (!subjectPrefix.startsWith('__NONCE__')) {
@@ -58,7 +70,7 @@ async function run() {
         console.log(issueBodyHtml);
       }
       
-      var msg = {
+      const msg = {
         to: toEmail,
         from: fromEmail,
         subject: subject,
