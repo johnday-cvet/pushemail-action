@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: johntday/pushemail-action@v1
+    - uses: johnday-cvet/pushemail-action@master
       env:
         SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
       with:
