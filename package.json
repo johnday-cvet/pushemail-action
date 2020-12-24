@@ -1,0 +1,35 @@
+{
+  "name": "pushemail-action",
+  "version": "1.0.0",
+  "description": "Automates sending a notification upon labeling of an issue",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint index.js",
+    "package": "ncc build index.js -o dist",
+    "test": "eslint index.js && jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johntday/pushemail-action.git"
+  },
+  "keywords": [
+    "GitHub",
+    "Actions",
+    "Issues"
+  ],
+  "author": "@johntday",
+  "homepage": "https://github.com/timheuer/issue-notifier#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^1.1.0",
+    "@sendgrid/mail": "^6.4.0",
+    "@types/sendgrid": "^4.3.0",
+    "moment": "^2.24.0",
+    "remarkable": "^2.0.0"
+  },
+  "devDependencies": {
+    "@zeit/ncc": "^0.20.5",
+    "eslint": "^6.3.0",
+    "jest": "^24.9.0"
+  }
+}
