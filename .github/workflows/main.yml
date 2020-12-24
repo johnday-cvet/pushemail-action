@@ -1,12 +1,12 @@
 name: "test-local"
 on: 
-  issues:
-    types: [labeled]
+  push:
+    paths:
+      - 'README.md'
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    if: (github.event.label.name == 'Breaking change') || (github.event.label.name == 'breaking-change')
     steps:
     - uses: actions/checkout@v2
     - uses: ./
@@ -17,7 +17,6 @@ jobs:
         toMailAddress: '${{ secrets.NOTIFY_EMAIL }}'
         subject: 'This is a test'
         subjectPrefix: 'BC:'
-        labelsToMonitor: "breaking-change,Breaking change"
         verbose: false
 
     - name: Dump GitHub context
