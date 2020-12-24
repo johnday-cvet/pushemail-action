@@ -19,10 +19,6 @@ inputs:
     description: 'Prefix in the subject line.  The issue title will be added after this'
     required: false
     default: '__NONCE__'
-  labelsToMonitor:
-    description: 'A JSON array-formatted list of labels to monitor'
-    required: true
-    default: '[{breaking-change}]'
   verbose:
     description: 'Turn on verbose logging'
     required: false
