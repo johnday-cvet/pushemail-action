@@ -25,15 +25,17 @@ async function run() {
 
     if (shouldNotify) {
       const payload = github.context.payload;
+      const bodyText = 'Push includes changes to 1-or-more secure files';
       const issueBodyPlain
-        = 'Push of one or more secure files\n\nLink to changes: ' + payload.compare
+        = bodyText
+        + '\n\nLink to Changes: ' + payload.compare
         + '\nSHA: ' + github.context.sha
         + '\nactor: ' + github.context.actor
         + '\nref: ' + payload.ref
         + '\ngithub workflow:' + github.context.workflow
         + '\nrepository: ' + payload.repository.full_name;
       const issueBodyHtml
-          = 'Push of one or more secure files'
+          = bodyText
           + '<ol>'
           + '<li><a href="' + payload.compare + '">Link to Changes</a></li>'
           + '<li><b>SHA</b>: ' + github.context.sha + '</li>'
@@ -42,13 +44,8 @@ async function run() {
           + '<li><b>GITHUB WORKFLOW</b>: ' + github.context.workflow + '</li>'
           + '<li><b>REPOSITORY</b>: ' + payload.repository.full_name + '</li>'
           + '</ol>';
-      let subject = 'Push of one or more secure files from ' + payload.repository.full_name;
+      const subject = subjectPrefix + ' from ' + payload.repository.full_name;
   
-      // construct the subject line
-      if (!subjectPrefix.startsWith('__NONCE__')) {
-        subject = subjectPrefix + ' ' + subject;
-      }
-
       if (verbose) {
         console.log('SUBJECT: ' + subject);
         console.log(issueBodyHtml);

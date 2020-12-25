@@ -11,10 +11,11 @@ inputs:
   toMailAddress:
     description: 'Semi-colon separated list of email address recipients'
     required: true
+    default: 'UNKNOWN'
   subjectPrefix:
     description: 'Prefix in the subject line'
-    required: false
-    default: '__NONCE__'
+    required: true
+    default: 'UNKNOWN'
   verbose:
     description: 'Turn on verbose logging'
     required: false
