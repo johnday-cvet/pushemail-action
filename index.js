@@ -1,8 +1,11 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const sendgrid = require('@sendgrid/mail');
-let shouldNotify = false;
+const shouldNotify = true;
 
+/**
+ * run
+ */
 async function run() {
   try { 
     // set SendGrid API Key
@@ -11,20 +14,14 @@ async function run() {
     // get all the input variables
     const fromEmail = core.getInput('fromMailAddress');
     const toEmail = core.getInput('toMailAddress');
-    let subject = core.getInput('subject');
     const verbose = core.getInput('verbose');
     const subjectPrefix = core.getInput('subjectPrefix');
 
-    if (verbose)
-    {
+    if (verbose) {
       console.log('TO:' + toEmail);
       console.log('FROM:' + fromEmail);
-      console.log('SUBJECT:' + subject);
       console.log('SUBJECT PREFIX:' + subjectPrefix);
     }
-
-    shouldNotify = true;
-    if (verbose) console.log('SHOULD NOTIFY: ' + shouldNotify);
 
     if (shouldNotify) {
       const payload = github.context.payload;
@@ -40,19 +37,20 @@ async function run() {
           + '<ol>'
           + '<li><a href="' + payload.compare + '">Link to Changes</a></li>'
           + '<li><b>SHA</b>: ' + github.context.sha + '</li>'
-          + '<li><b>actor</b>: ' + github.context.actor + '</li>'
-          + '<li><b>ref</b>: ' + payload.ref + '</li>'
-          + '<li><b>github workflow</b>: ' + github.context.workflow + '</li>'
-          + '<li><b>repository</b>: ' + payload.repository.full_name + '</li>'
+          + '<li><b>ACTOR</b>: ' + github.context.actor + '</li>'
+          + '<li><b>REF</b>: ' + payload.ref + '</li>'
+          + '<li><b>GITHUB WORKFLOW</b>: ' + github.context.workflow + '</li>'
+          + '<li><b>REPOSITORY</b>: ' + payload.repository.full_name + '</li>'
           + '</ol>';
-      const title = 'Push of one or more secure files from ' + payload.repository.full_name;
+      let subject = 'Push of one or more secure files from ' + payload.repository.full_name;
   
       // construct the subject line
       if (!subjectPrefix.startsWith('__NONCE__')) {
-        subject = subjectPrefix + ' ' + title;
+        subject = subjectPrefix + ' ' + subject;
       }
 
       if (verbose) {
+        console.log('SUBJECT: ' + subject);
         console.log(issueBodyHtml);
       }
       

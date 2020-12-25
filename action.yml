@@ -1,5 +1,5 @@
-name: 'GitHub Issue Notifier'
-description: 'Notifies email receiptients of a new GitHub issue based on labels.'
+name: 'Push Email Notification Action'
+description: 'Notifies email receiptients of a push of secure file'
 branding:
   color: 'green'
   icon: 'mail'
@@ -11,12 +11,8 @@ inputs:
   toMailAddress:
     description: 'Semi-colon separated list of email address recipients'
     required: true
-  subject:
-    description: 'Subject line'
-    required: true
-    default: 'Notification: A label was applied to an Issue on GitHub'
   subjectPrefix:
-    description: 'Prefix in the subject line.  The issue title will be added after this'
+    description: 'Prefix in the subject line'
     required: false
     default: '__NONCE__'
   verbose:
