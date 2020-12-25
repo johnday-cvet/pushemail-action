@@ -1,7 +1,7 @@
 {
   "name": "pushemail-action",
   "version": "1.0.0",
-  "description": "Automates sending a notification upon labeling of an issue",
+  "description": "Automates sending an email notification when 1-or-more specific files are pushed",
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js",
@@ -10,22 +10,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/johntday/pushemail-action.git"
+    "url": "git+https://github.com/johnday-cvet/pushemail-action.git"
   },
   "keywords": [
     "GitHub",
     "Actions",
-    "Issues"
+    "paths"
   ],
-  "author": "@johntday",
-  "homepage": "https://github.com/timheuer/issue-notifier#readme",
+  "author": "@johnday-cvet",
+  "homepage": "https://github.com/johnday-cvet/pushemail-action",
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^1.1.0",
     "@sendgrid/mail": "^6.4.0",
-    "@types/sendgrid": "^4.3.0",
-    "moment": "^2.24.0",
-    "remarkable": "^2.0.0"
+    "@types/sendgrid": "^4.3.0"
   },
   "devDependencies": {
     "@zeit/ncc": "^0.20.5",
