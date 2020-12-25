@@ -1,9 +1,8 @@
 # mail.yml
 
-The workflow in this repo `.github/workflows/main.yml` is just to test.
+This workflow is a unit test.
 
-To test:
-- goto repo settings and change value for `NOTIFY_EMAIL`
-- goto repo issues tab
-- create new label called `breaking-change`
-- create a new issue with label `breaking-change`
+## Testing
+- goto repo *Settings / Secrets* and change value for `NOTIFY_EMAIL`
+- add a new line to 'README.md' and commit and push to repo
+- check that email was sent to `NOTIFY_EMAIL`
