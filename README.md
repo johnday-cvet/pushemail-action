@@ -1,5 +1,4 @@
 # pushemail-action
-
 Send an email based on some trigger in GitHub. For example, send an email
 if one or more files are pushed to repo.
 
@@ -12,7 +11,6 @@ The following variables are required to be set:
 ![Repo secret settings](./doc/img/repo-secrets.png)
 
 ## Usage
-
 You can use the *pushemail-action* by: 
 - creating a workflow in your repo with `.github/workflows/main.yml` 
 - use the following example below for your implementation of `main.yml`
@@ -24,7 +22,7 @@ on:
   push:
     paths:
     - 'some-dir/**'
-
+    - 'some-other-dir/some-file'
 jobs:
   sendEmail:
     runs-on: ubuntu-latest
@@ -36,7 +34,6 @@ jobs:
       with:
         fromMailAddress: '${{ secrets.FROM_EMAIL }}'
         toMailAddress: '${{ secrets.TO_EMAIL }}'
-        subject: 'This is a test'
         subjectPrefix: 'Secure File Changed in Repo:'
         verbose: false
 ```
