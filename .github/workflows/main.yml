@@ -15,5 +15,5 @@ jobs:
       with:
         fromMailAddress: '${{ secrets.NOTIFY_EMAIL }}'
         toMailAddress: '${{ secrets.NOTIFY_EMAIL }}'
-        subjectPrefix: 'ALERT:'
+        subjectPrefix: 'ALERT: Push to secure file'
         verbose: false
