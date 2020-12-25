@@ -3,7 +3,6 @@ on:
   push:
     paths:
       - 'README.md'
-
 jobs:
   test:
     runs-on: ubuntu-latest
